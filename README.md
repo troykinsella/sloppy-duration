@@ -8,7 +8,7 @@ The `time.Duration` type supports a time granularity of up to an "hour" unit,
 and it does so to ensure duration precision. Obviously, for example,
 a month is a variable duration, which is why it cannot be manipulated precisely.
 
-Sloppy Duration expands upon `time.Duration`'s parsing and `Stringer` ability 
+`SloppyDuration` expands upon `time.Duration`'s parsing and `Stringer` ability 
 with support for:
 * Days (`d`): `24h`
 * Weeks (`w`): `24h * 7`
@@ -26,7 +26,31 @@ date for a blog post of, say, "2 months ago".
 
 ## Usage
 
-See `examples/`.
+Install:
+
+```bash
+go get github.com/troykinsella/sloppy-duration
+```
+
+Use:
+
+```go
+year, err := sloppy_duration.Parse("1y")
+if err != nil {
+	panic(err)
+}
+fmt.Printf("%s days in a year\n", year.Days())
+// Prints "365 days in a year"
+
+soon, err := sloppy_duration.Parse("48h")
+if err != nil {
+	panic(err)
+}
+fmt.Printf("Production will fail in: %s\n", soon)
+// Prints "Production will fail in: 2d"
+```
+
+See `examples/` for more details.
 
 ## Testing
 
